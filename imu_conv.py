@@ -93,14 +93,10 @@ df = add_wtime(df)
 
 if mode_out == 'csv':
     #角速度をラジアンから度に変更
-    if not mode_drone:
-        s = df[['Inertial/P [rad/s]', 'Inertial/Q [rad/s]', 'Inertial/R [rad/s]']]
-        anglar_sp_df = s.applymap(math.degrees)
-        anglar_sp_df.rename(columns={'Inertial/P [rad/s]': 'Inertial/P [deg/s]', 'Inertial/Q [rad/s]': 'Inertial/Q [deg/s]', 'Inertial/R [rad/s]': 'Inertial/R [deg/s]'}, inplace=True)
-        df_new = pd.concat([df, anglar_sp_df], axis=1)
-
-    else:
-        df_new = df.copy()
+    s = df[['Inertial/P [rad/s]', 'Inertial/Q [rad/s]', 'Inertial/R [rad/s]']]
+    anglar_sp_df = s.applymap(math.degrees)
+    anglar_sp_df.rename(columns={'Inertial/P [rad/s]': 'Inertial/P [deg/s]', 'Inertial/Q [rad/s]': 'Inertial/Q [deg/s]', 'Inertial/R [rad/s]': 'Inertial/R [deg/s]'}, inplace=True)
+    df_new = pd.concat([df, anglar_sp_df], axis=1)
 
     df_out = df_new[['sec', 'Inertial/X [m/s2]', 'Inertial/Y [m/s2]', 'Inertial/Z [m/s2]', 'Inertial/P [deg/s]', 'Inertial/Q [deg/s]', 'Inertial/R [deg/s]']].copy()
 
