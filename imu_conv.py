@@ -91,6 +91,20 @@ if 'AircraftTime.Year' in df.columns:
 #週番号と秒の追加
 df = add_wtime(df)
 
+#時刻の重複がある場合、同時刻でもっとも上の行を選択する
+df.reset_index(drop=True, inplace=True)
+drop_idx = []
+for i in range(df.shape[0]):
+    if i == 0:
+        tmp_t = df['wsec'].iloc[i]
+        continue
+    if df['wsec'].iloc[i] == tmp_t:
+        drop_idx.append(i)
+        continue
+    tmp_t = df['wsec'].iloc[i]
+df.drop(index=drop_idx, inplace=True)
+df.reset_index(drop=True, inplace=True)
+
 if mode_out == 'csv':
     #角速度をラジアンから度に変更
     s = df[['Inertial/P [rad/s]', 'Inertial/Q [rad/s]', 'Inertial/R [rad/s]']]
