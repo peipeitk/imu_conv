@@ -68,13 +68,13 @@ mode_drone = False
 #ドローンデータから取得したIMUデータを読み込む際のカラム名の統合
 if 'AircraftTime.Year' in df.columns:
     mode_drone = True
-    df.rename(columns={'Sensor_MG200.PRate': 'Inertial/P [rad/s]'}, inplace=True)
-    df.rename(columns={'Sensor_MG200.QRate': 'Inertial/Q [rad/s]'}, inplace=True)
-    df.rename(columns={'Sensor_MG200.RRate': 'Inertial/R [rad/s]'}, inplace=True)
+    df.rename(columns={'Sensor_MG200.PRate[rad/s]': 'Inertial/P [rad/s]'}, inplace=True)
+    df.rename(columns={'Sensor_MG200.QRate[rad/s]': 'Inertial/Q [rad/s]'}, inplace=True)
+    df.rename(columns={'Sensor_MG200.RRate[rad/s]': 'Inertial/R [rad/s]'}, inplace=True)
 
-    df.rename(columns={'Sensor_MG200.XAcceleration': 'Inertial/X [m/s2]'}, inplace=True)
-    df.rename(columns={'Sensor_MG200.YAcceleration': 'Inertial/Y [m/s2]'}, inplace=True)
-    df.rename(columns={'Sensor_MG200.ZAcceleration': 'Inertial/Z [m/s2]'}, inplace=True)
+    df.rename(columns={'Sensor_MG200.XAcceleration[m/s^2]': 'Inertial/X [m/s2]'}, inplace=True)
+    df.rename(columns={'Sensor_MG200.YAcceleration[m/s^2]': 'Inertial/Y [m/s2]'}, inplace=True)
+    df.rename(columns={'Sensor_MG200.ZAcceleration[m/s^2]': 'Inertial/Z [m/s2]'}, inplace=True)
     df['StatusTime/Date'] = df['AircraftTime.Year'].astype('str').str.cat([df['AircraftTime.Month'].astype('str'), df['AircraftTime.Day'].astype('str')], sep='/')
     df['StatusTime/Time'] = df['AircraftTime.Hour'].astype('str').str.cat([df['AircraftTime.Minute'].astype('str'), df['AircraftTime.Second'].astype('str')], sep=':')
     df.rename(columns={'AircraftTime.Millisecond': 'StatusTime/MilliSeconds'}, inplace=True)
